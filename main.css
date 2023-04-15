@@ -22,6 +22,10 @@ p {
     color: var(--grayish-blue);
 }
 
+html {
+    height: 100%;
+}
+
 body {
     font-size: 15px;
     font-family: var(--font);
@@ -39,16 +43,18 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .title {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    justify-content: center;
     position: absolute;
     top: 0;
-    width: 100%;
-    height: 30%;
+    width: 90%;
+    height: auto;
     padding: 20px 0;
 }
 
@@ -61,39 +67,33 @@ main {
 }
 
 .title p {
+    display: block;
     font-weight: 400;
     width: 500px;
 }
 
 .container {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     position: absolute;
     align-items: flex-start;
     justify-content: flex-start;
     width: 85%;
-    bottom: 0;
+    top: 30%;
     height: 70%;
     gap: 10px;
 }
 
 .container .column {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    place-items: center;
     height: 100%;
     width: calc((100% - 20px) / 3);
-    translate: 0 -5%;
     z-index: 1;
 }
 
-.column.double article:first-child {
-    align-self: flex-start;
-}
-
-.column.double article:last-child {
-    align-self: flex-end;
+.container .column.middle {
+    height: calc(50% - 10px);
 }
 
 .container .column article {
@@ -102,7 +102,7 @@ main {
     flex-direction: column;
     align-items: flex-start;
     width: calc(100% - 10px);
-    height: calc(100% * 0.4);
+    aspect-ratio: 16 / 9;
     background-color: var(--white);
     border-top-width: 5px;
     border-top-style: solid;
@@ -152,7 +152,7 @@ article.right {
 
 .container:hover article:not(:hover) {
     scale: 0.75;
-    opacity: 0.5;
+    opacity: 0.2;
     z-index: 0;
 }
 
@@ -182,4 +182,48 @@ article.right {
     scale: 1.5;
     z-index: 1;
     translate: -80% 0;
+}
+
+@media screen and (max-width: 450px) {
+    main {
+        min-height: 100vh;
+        overflow-y: scroll;
+    }
+
+    .title {
+        height: 30%;
+    }
+
+    .title h1 {
+        font-size: 1.6rem;
+    }
+
+    .title p {
+        width: min(500px, 20rem);
+    }
+
+    .container {
+        flex-wrap: nowrap;
+        width: 90%;
+        height: auto;
+        gap: 5px;
+    }
+
+    .container .column {
+        width: 100%;
+        min-height: 205px;
+    }
+
+    .container:hover article:not(:hover) {
+        scale: 0.9;
+        translate: -30px 0;
+    }
+
+    .container:hover article.left:hover,
+    .container:hover article.top:hover,
+    .container:hover article.bottom:hover,
+    .container:hover article.right:hover {
+        scale: 1;
+        translate: 10px 0;
+    }
 }
