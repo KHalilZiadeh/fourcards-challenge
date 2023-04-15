@@ -211,7 +211,7 @@ article.right {
 
     .container .column {
         width: 100%;
-        min-height: 205px;
+        aspect-ratio: 16 / 9;
     }
 
     .container:hover article:not(:hover) {
